@@ -98,11 +98,21 @@ running = True
 
 # Main game loop
 while running:  # similar to while True:
-    # wn.update()
+    wn.update()
 
     # Move the ball
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
+
+    # Paddle limiter
+    if paddle_a.ycor() > 260:
+        paddle_a.sety(260)
+    if paddle_a.ycor() < -250:
+        paddle_a.sety(-250)
+    if paddle_b.ycor() > 260:
+        paddle_b.sety(260)
+    if paddle_b.ycor() < -250:
+        paddle_b.sety(-250)
 
     # Border checking
     if ball.ycor() > 280:
