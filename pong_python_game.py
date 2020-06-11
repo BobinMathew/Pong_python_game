@@ -6,6 +6,7 @@ wn.bgcolor("black")
 wn.setup(width=800, height=600)
 # wn.tracer(0)
 
+
 # Paddle A
 paddle_a = turtle.Turtle()
 paddle_a.speed(0)
@@ -31,8 +32,8 @@ ball.shape("circle")
 ball.color("red")
 ball.penup()
 ball.goto(0, 0)
-ball.dx = 2
-ball.dy = 2
+ball.dx = 3
+ball.dy = 3
 
 
 # Function
@@ -72,7 +73,6 @@ wn.onkeypress(paddle_b_down, "Down")
 score_a = 0
 score_b = 0
 
-
 # Score Board
 board = turtle.Turtle()
 board.speed(0)
@@ -82,9 +82,23 @@ board.hideturtle()
 board.goto(0, 260)
 board.write("Player A : 0     Player B : 0", align="Center", font=("Ariel", 15, "normal"))
 
+# For closing screen on clicking close button
+canvas = wn.getcanvas()
+root = canvas.winfo_toplevel()  # for getting top level widget
+
+
+def on_close():
+    global running
+    running = False
+
+
+root.protocol("WM_DELETE_WINDOW", on_close)
+
+running = True
+
 # Main game loop
-while True:
-    wn.update()
+while running:  # similar to while True:
+    # wn.update()
 
     # Move the ball
     ball.setx(ball.xcor() + ball.dx)
@@ -94,6 +108,7 @@ while True:
     if ball.ycor() > 280:
         ball.sety(280)
         ball.dy += -5
+
     if ball.ycor() < -280:
         ball.sety(-280)
         ball.dy += 5
@@ -116,12 +131,12 @@ while True:
 
     # Paddle and ball collisions
     if (330 < ball.xcor() < 340) and (
-            paddle_b.ycor() + 40 > ball.ycor() > paddle_b.ycor() - 40):
+            paddle_b.ycor() + 50 > ball.ycor() > paddle_b.ycor() - 50):
         ball.setx(330)
         ball.dx += -5
 
     if (-330 > ball.xcor() > -340) and (
-            paddle_a.ycor() + 40 > ball.ycor() > paddle_a.ycor() - 40):
+            paddle_a.ycor() + 50 > ball.ycor() > paddle_a.ycor() - 50):
         ball.setx(-330)
         ball.dx += 5
 
